@@ -5,7 +5,7 @@ resources:
   - ../../../base/my-website
 images:
   - name: my-website
-    newName: 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/my-website
+    newName: public.ecr.aws/r8m4q7l9/my-website
     newTag: latest
 patches:
   - patch: |-
@@ -15,3 +15,4 @@ patches:
     target:
       kind: Deployment
       name: my-website
+      

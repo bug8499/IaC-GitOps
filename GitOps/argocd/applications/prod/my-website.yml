@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-website-dev
+  name: my-website-prod
   namespace: argocd
 spec:
   project: sample-project
   source:
     repoURL: https://github.com/bug8499/IaC-GitOps
     targetRevision: main
-    path: GitOps/apps/overlays/dev/my-website   # ← ชี้ที่ overlay ของ website
+    path: GitOps/apps/overlays/prod/my-website
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev
+    namespace: prod
   syncPolicy:
     automated:
       prune: true
