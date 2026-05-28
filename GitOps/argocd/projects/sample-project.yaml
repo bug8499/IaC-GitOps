@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: sample-project
+  namespace: argocd
+spec:
+  description: Sample App Project
+
+  # repo ที่ ArgoCD อ่านได้
+  sourceRepos:
+    - https://github.com/YOUR_ORG/iac-ops.git   # เปลี่ยนเป็น repo จริง
+
+  # cluster + namespace ที่ deploy ได้
+  destinations:
+    - namespace: dev
+      server: https://kubernetes.default.svc
+    - namespace: prod
+      server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace

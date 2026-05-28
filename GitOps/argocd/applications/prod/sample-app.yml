@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-app-prod
+  namespace: argocd
+  labels:
+    environment: prod
+spec:
+  project: sample-project
+
+  source:
+    repoURL: https://github.com/YOUR_ORG/iac-ops.git   # เปลี่ยน
+    targetRevision: main
+    path: GitOps/overlays/prod   # ← ชี้ไปที่ overlay prod
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

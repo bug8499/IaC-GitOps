@@ -1,0 +1,96 @@
+name: Build and Deploy
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        required: true
+        type: string
+        description: "ชื่อ service เช่น sample-app"
+      environment:
+        required: true
+        type: string
+        description: "dev หรือ prod"
+      image_tag:
+        required: true
+        type: string
+        description: "Docker image tag เช่น github.sha"
+      aws_region:
+        required: false
+        type: string
+        default: "ap-southeast-1"
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      GH_PAT:
+        required: true   # สำหรับ push กลับมา iac-ops repo
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout source code ของ app (repo ที่เรียก workflow นี้)
+      - name: Checkout app source
+        uses: actions/checkout@v4
+
+      # 2. ตั้งค่า AWS credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ inputs.aws_region }}
+
+      # 3. Login เข้า ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # 4. Build และ Push Docker image ไป ECR
+      - name: Build and push Docker image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+          SERVICE: ${{ inputs.service_name }}
+        run: |
+          docker build -t $ECR_REGISTRY/$SERVICE:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$SERVICE:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$SERVICE:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      # 5. Checkout iac-ops repo เพื่ออัพเดท image tag
+      - name: Checkout iac-ops repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/iac-ops
+          token: ${{ secrets.GH_PAT }}
+          path: iac-ops
+
+      # 6. Update image tag ใน kustomization.yaml ของ overlay ที่ตรงกับ env
+      - name: Update image tag in overlay
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+          SERVICE: ${{ inputs.service_name }}
+          ENV: ${{ inputs.environment }}
+        run: |
+          cd iac-ops
+          # ใช้ kustomize edit เพื่ออัพเดท tag
+          cd GitOps/overlays/$ENV
+          kustomize edit set image $SERVICE=$ECR_REGISTRY/$SERVICE:$IMAGE_TAG
+
+      # 7. Commit และ Push กลับ iac-ops
+      - name: Commit and push image tag update
+        env:
+          ENV: ${{ inputs.environment }}
+          SERVICE: ${{ inputs.service_name }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+        run: |
+          cd iac-ops
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add GitOps/overlays/$ENV/kustomization.yaml
+          git commit -m "deploy($ENV): update $SERVICE image tag to $IMAGE_TAG"
+          git push
