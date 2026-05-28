@@ -78,7 +78,7 @@ jobs:
         run: |
           cd iac-ops
           # ใช้ kustomize edit เพื่ออัพเดท tag
-          cd GitOps/overlays/$ENV
+          cd ${{ inputs.overlay_path }}/$ENV/$SERVICE
           kustomize edit set image $SERVICE=$ECR_REGISTRY/$SERVICE:$IMAGE_TAG
 
       # 7. Commit และ Push กลับ iac-ops
