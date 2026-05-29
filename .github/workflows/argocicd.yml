@@ -72,7 +72,7 @@ jobs:
       - name: Checkout iac-ops repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/iac-ops
+          repository: ${{ github.repository_owner }}/IaC-GitOps
           token: ${{ secrets.GH_PAT }}
           path: iac-ops
 
