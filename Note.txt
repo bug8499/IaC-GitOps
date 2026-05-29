@@ -22,3 +22,7 @@
 5. สร้าง GitOps/argocd/applications/prod/<app>.yml
 6. kubectl apply -f GitOps/argocd/applications/dev/<app>.yml
 7. kubectl apply -f GitOps/argocd/applications/prod/<app>.yml
+
+
+ติดตั้งตัว k3s ใน ec2
+curl -sfL https://get.k3s.io | sh -
