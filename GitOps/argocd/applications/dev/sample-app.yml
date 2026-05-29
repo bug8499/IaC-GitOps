@@ -9,9 +9,9 @@ spec:
   project: sample-project
 
   source:
-    repoURL: https://github.com/YOUR_ORG/iac-ops.git   # เปลี่ยน
+    repoURL: https://github.com/bug8499/IaC-GitOpst   # เปลี่ยน
     targetRevision: main
-    path: GitOps/overlays/dev   # ← ชี้ไปที่ overlay dev
+    path: GitOps/apps/overlays/dev   # ← ชี้ไปที่ overlay dev
 
   destination:
     server: https://kubernetes.default.svc
