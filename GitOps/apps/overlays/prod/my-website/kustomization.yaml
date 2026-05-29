@@ -4,18 +4,18 @@ kind: Kustomization
 namespace: prod
 
 resources:
-  - ../../../base/my-website
+- ../../../base/my-website
 
 images:
-  - name: my-website
-    newName: public.ecr.aws/r8m4q7l9/my-website
-    newTag: latest
+- name: my-website
+  newName: public.ecr.aws/r8m4q7l9/my-website
+  newTag: 61dae574423c6fcf5c1069955788ecbf2cf8a18d
 
 patches:
-  - patch: |-
-      - op: replace
-        path: /spec/replicas
-        value: 2
-    target:
-      kind: Deployment
-      name: my-website
+- patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 2
+  target:
+    kind: Deployment
+    name: my-website
