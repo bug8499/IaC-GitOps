@@ -1,9 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: dev
 resources:
-  - ../../../base/my-website
-images:
-  - name: my-website
-    newName: 123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/my-website
-    newTag: latest
+  - deployment.yaml
+  - service.yaml
