@@ -23,7 +23,7 @@ spec:
         - key: node-role.kubernetes.io/control-plane
           effect: NoSchedule
       nodeSelector:
-        node-role.kubernetes.io/master: "true"
+        node-role.kubernetes.io/control-plane: "true"
       containers:
         - name: cluster-autoscaler
           # Match version to your K3S Kubernetes minor version
