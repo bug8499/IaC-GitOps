@@ -60,10 +60,10 @@ spec:
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt
-              subPath: ca-bundle.crt
+              subPath: ca-certificates.crt
               readOnly: true
       volumes:
         - name: ssl-certs
           hostPath:
-            path: /etc/ssl/certs
-            type: Directory
+            path: /etc/ssl/certs/ca-certificates.crt
+            type: File
