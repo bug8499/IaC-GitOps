@@ -60,7 +60,6 @@ spec:
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt
-              subPath: ca-certificates.crt
               readOnly: true
       volumes:
         - name: ssl-certs
