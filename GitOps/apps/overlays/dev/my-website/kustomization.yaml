@@ -15,3 +15,10 @@ patches:
   target:
     kind: Deployment
     name: my-website
+# - patch: |-
+#     - op: replace
+#       path: /spec/rules/0/host
+#       value: my-website.dev.example.com   # hostname สำหรับ dev
+#   target:
+#     kind: Ingress
+#     name: my-website
