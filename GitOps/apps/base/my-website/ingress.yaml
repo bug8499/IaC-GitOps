@@ -1,19 +1,20 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: my-website
-#   annotations:
-#     traefik.ingress.kubernetes.io/router.entrypoints: web
-# spec:
-#   ingressClassName: traefik       # k3s ใช้ Traefik เป็น default
-#   rules:
-#     - host: my-website.example.com  # เปลี่ยนเป็น domain จริง
-#       http:
-#         paths:
-#           - path: /
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: my-website
-#                 port:
-#                   number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-website
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: myapp.example.com       # Domain ที่ต้องการ
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-website
+                port:
+                  number: 80
+                  

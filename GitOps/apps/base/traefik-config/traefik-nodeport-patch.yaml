@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+      nodePort: 30080   # ALB จะส่งมาที่นี่ (HTTP)
+    - name: websecure
+      port: 443
+      targetPort: websecure
+      nodePort: 30443   # (optional ถ้า ALB ทำ SSL Termination แล้ว ไม่จำเป็น)
