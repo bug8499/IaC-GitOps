@@ -46,6 +46,7 @@ spec:
             - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled=true,k8s.io/cluster-autoscaler/my-k3s-cluster=owned
             - --balance-similar-node-groups
             - --skip-nodes-with-system-pods=false
+            - --aws-use-static-instance-list=true
           env:
             - name: AWS_REGION
               valueFrom:
