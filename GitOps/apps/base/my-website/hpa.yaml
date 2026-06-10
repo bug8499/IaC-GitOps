@@ -7,12 +7,21 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: my-website
-  minReplicas: 1
-  maxReplicas: 5
+  minReplicas: 2        # เพิ่มจาก 1 → ไม่มี single point of failure
+  maxReplicas: 20       # เพิ่มจาก 5 → รองรับ spike ได้
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 70
+          averageUtilization: 60   # ลดจาก 70 → scale เร็วขึ้น ก่อน overload
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30   # scale up ไวขึ้น (default 0 แต่ explicit ดีกว่า)
+      policies:
+      - type: Pods
+        value: 4          # เพิ่มได้ครั้งละ 4 pods
+        periodSeconds: 30
+    scaleDown:
+      stabilizationWindowSeconds: 120  # scale down ช้าลง ป้องกัน flapping
