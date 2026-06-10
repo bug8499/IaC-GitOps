@@ -16,12 +16,9 @@ spec:
         target:
           type: Utilization
           averageUtilization: 60   # ลดจาก 70 → scale เร็วขึ้น ก่อน overload
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 30   # scale up ไวขึ้น (default 0 แต่ explicit ดีกว่า)
-      policies:
-      - type: Pods
-        value: 4          # เพิ่มได้ครั้งละ 4 pods
-        periodSeconds: 30
-    scaleDown:
-      stabilizationWindowSeconds: 120  # scale down ช้าลง ป้องกัน flapping
+    - type: Resource          # ← เพิ่มตรงนี้
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
