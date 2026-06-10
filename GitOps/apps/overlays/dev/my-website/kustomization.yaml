@@ -10,13 +10,6 @@ images:
 patches:
 - patch: |-
     - op: replace
-      path: /spec/replicas
-      value: 1
-  target:
-    kind: Deployment
-    name: my-website
-- patch: |-
-    - op: replace
       path: /spec/rules/0/host
       value: dev.bug-website.com
   target:
