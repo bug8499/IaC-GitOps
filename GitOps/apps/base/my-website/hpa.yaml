@@ -22,14 +22,14 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 0   # scale ทันทีไม่รอ
-      policies:
-      - type: Pods
-        value: 4                       # เพิ่มได้ครั้งละ 4 pods
-        periodSeconds: 15
-      - type: Percent
-        value: 100                     # หรือ double ก็ได้
-        periodSeconds: 15
-      selectPolicy: Max                # เลือก policy ที่เพิ่มได้มากกว่า
+  # behavior:
+  #   scaleUp:
+  #     stabilizationWindowSeconds: 0   # scale ทันทีไม่รอ
+  #     policies:
+  #     - type: Pods
+  #       value: 4                       # เพิ่มได้ครั้งละ 4 pods
+  #       periodSeconds: 15
+  #     - type: Percent
+  #       value: 100                     # หรือ double ก็ได้
+  #       periodSeconds: 15
+  #     selectPolicy: Max                # เลือก policy ที่เพิ่มได้มากกว่า
