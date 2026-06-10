@@ -19,10 +19,10 @@ patches:
   target:
     kind: Deployment
     name: my-website
-# - patch: |-
-#     - op: replace
-#       path: /spec/rules/0/host
-#       value: my-website.prod.example.com   # hostname สำหรับ prod
-#   target:
-#     kind: Ingress
-#     name: my-website
+- patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: bug-website.com
+  target:
+    kind: Ingress
+    name: my-website

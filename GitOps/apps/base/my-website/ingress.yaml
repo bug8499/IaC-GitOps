@@ -5,16 +5,14 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
-  ingressClassName: traefik
   rules:
-    - host: myapp.example.com       # Domain ที่ต้องการ
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: my-website
-                port:
-                  number: 80
-                  
+  - host: placeholder.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-website
+            port:
+              number: 80
