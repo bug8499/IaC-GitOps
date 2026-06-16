@@ -9,7 +9,7 @@ resources:
 images:
 - name: my-website
   newName: public.ecr.aws/r8m4q7l9/my-website
-  newTag: 06fcc5d0b6c17fe95be00f4ed18110dcb2f814dc
+  newTag: 0cf8eeb998c04cf31b95ac93fc0426948505f6d4
 
 patches:
 - patch: |-
