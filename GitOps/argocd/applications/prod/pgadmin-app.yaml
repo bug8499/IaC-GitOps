@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<your-org>/iac-ops
+    repoURL: https://github.com/bug8499/IaC-GitOps
     targetRevision: main
     path: GitOps/apps/overlays/prod/pgadmin
   destination:
