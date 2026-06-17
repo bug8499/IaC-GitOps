@@ -9,7 +9,7 @@ resources:
 images:
 - name: meme-website
   newName: public.ecr.aws/r8m4q7l9/meme-website
-  newTag: ae11e0904e39e59eb0090c4843ed0f1fabcb5ce2
+  newTag: ca7782d966d146e0fef7633a706236fef0ad8e44
   
 patches:
 - patch: |-
