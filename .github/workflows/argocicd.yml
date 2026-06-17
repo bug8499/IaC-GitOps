@@ -33,7 +33,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, prod]
 
     steps:
       # 1. Checkout source code ของ app (repo ที่เรียก workflow นี้)
