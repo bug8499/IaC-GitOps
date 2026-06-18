@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-autoscaler-dev
+  name: cluster-autoscaler
   namespace: argocd
 spec:
   project: sample-project
