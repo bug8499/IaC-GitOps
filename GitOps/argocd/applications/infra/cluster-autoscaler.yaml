@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-autoscaler-prod
+  name: cluster-autoscaler-dev
   namespace: argocd
 spec:
   project: sample-project
   source:
     repoURL: https://github.com/bug8499/IaC-GitOps
     targetRevision: main
-    path: GitOps/apps/overlays/prod/cluster-autoscaler
+    path: GitOps/apps/overlays/infra/cluster-autoscaler
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
