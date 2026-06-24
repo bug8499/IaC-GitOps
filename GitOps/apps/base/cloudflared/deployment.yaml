@@ -13,20 +13,16 @@ spec:
       labels:
         app: cloudflared
     spec:
-      affinity:
-        podAntiAffinity:
-          # requiredDuringSchedulingIgnoredDuringExecution:
-          preferredDuringSchedulingIgnoredDuringExecution:        # ← เปลี่ยนจาก requiredDuringSchedulingIgnoredDuringExecution
-          - weight: 100                                            # ← เพิ่มบรรทัดนี้
-            podAffinityTerm:                                       # ← เพิ่มบรรทัดนี้ (ครอบ labelSelector + topologyKey เดิม)
-          
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - cloudflared
-            topologyKey: kubernetes.io/hostname
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values:
+      #           - cloudflared
+      #       topologyKey: kubernetes.io/hostname
       containers:
       - name: cloudflared
         image: cloudflare/cloudflared:latest
