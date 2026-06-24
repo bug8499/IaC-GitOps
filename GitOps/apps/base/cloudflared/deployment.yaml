@@ -15,7 +15,11 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          # requiredDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:        # ← เปลี่ยนจาก requiredDuringSchedulingIgnoredDuringExecution
+          - weight: 100                                            # ← เพิ่มบรรทัดนี้
+            podAffinityTerm:                                       # ← เพิ่มบรรทัดนี้ (ครอบ labelSelector + topologyKey เดิม)
+          
           - labelSelector:
               matchExpressions:
               - key: app
